@@ -52,4 +52,9 @@ public class TripAdapter  extends RecyclerView.Adapter<RecyclerViewHolder>{
     public int getItemCount() {
         return tripList.size();
     }
+
+    public void setTripList(List<Trip> trips){
+        tripList = trips;
+        notifyDataSetChanged();
+    }
 }

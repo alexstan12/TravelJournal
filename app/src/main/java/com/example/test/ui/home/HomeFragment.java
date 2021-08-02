@@ -3,6 +3,7 @@ package com.example.test.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,36 +30,27 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class HomeFragment extends Fragment {
 
+    private final String TAG = HomeFragment.class.getSimpleName();
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
+    public static final int NEW_TRIP_ACTIVITY_REQUEST_CODE = 1;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
+//        try {
+            homeViewModel =
+                    new ViewModelProvider(this).get(HomeViewModel.class);
+//                new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(HomeViewModel.class);
+//        }catch(Exception e){
+//            Log.d("ERROR_ALEX","ERROR ON INITIALIZING homeViewModel");
+//        }
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "HA, YOU DID IT!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(getContext(), AddTripActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         RecyclerView recycler = binding.recyclerview;
         recycler.setHasFixedSize(true);
@@ -69,6 +61,26 @@ public class HomeFragment extends Fragment {
         tripList.add(trip1);
         TripAdapter tripAdapter = new TripAdapter(tripList);
         recycler.setAdapter(tripAdapter);
+
+        final TextView textView = binding.textHome;
+        homeViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
+            @Override
+            public void onChanged(List<Trip> trips) {
+                tripAdapter.setTripList(trips);
+            }
+        });
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "HA, YOU DID IT!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(getContext(), AddTripActivity.class);
+                startActivityForResult(intent, NEW_TRIP_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+
         return root;
     }
 
@@ -81,5 +93,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
         super.onAttach(context);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_TRIP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            Trip trip = new Trip("placeholder",
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.TRIP_NAME),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.PRICE),
+                    "favorite")
+                    ;
+            homeViewModel.insert(trip);
+        }
     }
 }
