@@ -30,11 +30,13 @@ public class TripAdapter  extends RecyclerView.Adapter<RecyclerViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerViewHolder holder, int position) {
         String tripName = tripList.get(position).getTripName();
+        String destination = tripList.get(position).getDestination();
         String priceRating = tripList.get(position).getPriceRating();
         String favorite = tripList.get(position).getFavorite();
         holder.getTripName().setText(tripName);
         holder.getPriceRating().setText(priceRating);
-        holder.getFavorite().setText(favorite);
+        holder.getFavorite().setActivated(true);
+        holder.getDestination().setText(destination);
 
         if (position == 0) {
             holder.getPicture().setImageResource(R.drawable.ic_launcher_foreground);

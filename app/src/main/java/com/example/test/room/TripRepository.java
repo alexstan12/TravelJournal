@@ -24,7 +24,7 @@ public class TripRepository {
         return allTrips;
     }
 
-    public void insert(Trip trip) {
+    public void insert(TripEntity trip) {
         TripRoomDatabase.executor.execute(() -> {
             tripDao.insertTrip(trip);
         });

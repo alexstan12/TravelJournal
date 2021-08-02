@@ -51,11 +51,12 @@
                 android:text="Mountains" />
         </RadioGroup>
 
-        <SeekBar
+        <com.google.android.material.slider.Slider
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
+            android:stepSize="1.0"
             android:progress="20" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

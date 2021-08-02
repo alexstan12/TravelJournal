@@ -12,13 +12,14 @@ import com.example.test.Trip;
 
 import java.util.List;
 
+@Dao
 public abstract class TripDao {
 
 //    @Query("SELECT * FROM Trip")
 //    public abstract List<TripEntity> getTripList();
 
     @Insert
-    public abstract void insertTrip(Trip trip);
+    public abstract void insertTrip(TripEntity trip);
 
     @Query("DELETE FROM Trip")
     public abstract void deleteAll();

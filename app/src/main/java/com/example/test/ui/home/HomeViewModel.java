@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.test.Trip;
+import com.example.test.room.TripEntity;
 import com.example.test.room.TripRepository;
 
 import java.util.List;
@@ -26,5 +27,5 @@ public class HomeViewModel extends AndroidViewModel {
     public LiveData<List<Trip>> getAllTrips() {
         return allTrips;
     }
-    public void insert(Trip trip) { tripRepository.insert(trip); }
+    public void insert(TripEntity trip) { tripRepository.insert(trip); }
 }

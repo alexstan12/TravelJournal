@@ -23,6 +23,7 @@ import com.example.test.Trip;
 import com.example.test.TripAdapter;
 
 import com.example.test.databinding.FragmentHomeBinding;
+import com.example.test.room.TripEntity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,8 +58,8 @@ public class HomeFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Trip> tripList = new ArrayList<>();
-        Trip trip1 = new Trip("picture", "tripName", "priceRating", "favorite");
-        tripList.add(trip1);
+//        Trip trip1 = new Trip("picture", "tripName", "priceRating", "favorite");
+//        tripList.add(trip1);
         TripAdapter tripAdapter = new TripAdapter(tripList);
         recycler.setAdapter(tripAdapter);
 
@@ -100,12 +101,18 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_TRIP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
-            Trip trip = new Trip("placeholder",
+            TripEntity tripEntity = new TripEntity("placeholder",
                     data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.TRIP_NAME),
-                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.PRICE),
-                    "favorite")
-                    ;
-            homeViewModel.insert(trip);
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.DESTINATION),
+                    false,
+                    false,
+                    true,
+                    (int) data.getBundleExtra("TRIP_BUNDLE").getFloat(AddTripActivity.PRICE),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.START_DATE),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.END_DATE),
+                    data.getBundleExtra("TRIP_BUNDLE").getFloat(AddTripActivity.RATING));
+
+            homeViewModel.insert(tripEntity);
         }
     }
 }

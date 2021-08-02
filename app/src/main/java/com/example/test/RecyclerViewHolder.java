@@ -14,6 +14,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView picture;
     private TextView tripName;
+    private TextView destination;
     private TextView priceRating;
     private Button favorite;
     public RecyclerViewHolder(@NonNull View itemView) {
@@ -22,6 +23,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         tripName = itemView.findViewById(R.id.tripView);
         priceRating = itemView.findViewById(R.id.priceRatingView);
         favorite = itemView.findViewById(R.id.favoriteView);
+        destination = itemView.findViewById(R.id.destinationView);
     }
 
     public ImageView getPicture() {
@@ -38,5 +40,9 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public Button getFavorite() {
         return favorite;
+    }
+
+    public TextView getDestination() {
+        return destination;
     }
 }

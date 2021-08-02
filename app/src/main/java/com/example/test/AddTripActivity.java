@@ -17,21 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.slider.Slider;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddTripActivity extends FragmentActivity {
-
-    private EditText tripName = findViewById(R.id.trip_name);
-    private EditText destination = findViewById(R.id.destination);
-//    private RadioButton cityBreak  =findViewById(R.id.city_break);
-//    private RadioButton seaSide  =findViewById(R.id.sea_side);
-//    private RadioButton mountains  =findViewById(R.id.mountains);
-    private RadioGroup tripType = findViewById(R.id.trip_type);
-    private SeekBar price = findViewById(R.id.price);
-    private DatePicker startDate = findViewById(R.id.start_date);
-    private DatePicker endDate = findViewById(R.id.end_date);
-    private RatingBar rating = findViewById(R.id.rating);
 
     public static final String TRIP_NAME = "trip_name";
     public static final String DESTINATION = "destination";
@@ -48,6 +39,17 @@ public class AddTripActivity extends FragmentActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_dialog);
+
+         EditText tripName = findViewById(R.id.trip_name);
+         EditText destination = findViewById(R.id.destination);
+//    private RadioButton cityBreak  =findViewById(R.id.city_break);
+//    private RadioButton seaSide  =findViewById(R.id.sea_side);
+//    private RadioButton mountains  =findViewById(R.id.mountains);
+         RadioGroup tripType = findViewById(R.id.trip_type);
+         Slider price = findViewById(R.id.price);
+         DatePicker startDate = findViewById(R.id.start_date);
+         DatePicker endDate = findViewById(R.id.end_date);
+         RatingBar rating = findViewById(R.id.rating);
 
         RatingBar ratingBar = findViewById(R.id.rating);
         ratingBar.setMax(5);
@@ -67,7 +69,7 @@ public class AddTripActivity extends FragmentActivity {
                     bundle.putString(TRIP_NAME, tripName.getText().toString());
                     bundle.putString(DESTINATION, destination.getText().toString());
                     bundle.putInt(TRIP_TYPE, tripType.getCheckedRadioButtonId());
-                    bundle.putInt(PRICE, price.getProgress());
+                    bundle.putFloat(PRICE, price.getValue());
 //                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //                    dateFormat.format(new Date())
 //                    bundle.putString(START_DATE, startDate.ge);

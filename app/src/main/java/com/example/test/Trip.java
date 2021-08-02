@@ -6,12 +6,14 @@ public class Trip implements Serializable {
 
     private String picture;
     private String tripName;
+    private String destination;
     private String priceRating;
     private String favorite;
 
-    public Trip(String picture, String tripName, String priceRating, String favorite) {
+    public Trip(String picture, String tripName, String destination ,String priceRating, String favorite) {
         this.picture = picture;
         this.tripName = tripName;
+        this.destination = destination;
         this.priceRating = priceRating;
         this.favorite = favorite;
     }
@@ -46,5 +48,13 @@ public class Trip implements Serializable {
 
     public void setFavorite(String favorite) {
         this.favorite = favorite;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }
