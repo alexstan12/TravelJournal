@@ -29,4 +29,7 @@ public abstract class TripDao {
 
     @Query("SELECT * from Trip")
     abstract LiveData<List<Trip>> getTripList();
+
+    @Update
+    public abstract void updateTrip(TripEntity trip);
 }

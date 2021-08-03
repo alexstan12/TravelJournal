@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment implements TripAdapter.OnClickListene
     private FragmentHomeBinding binding;
 
     public static final int NEW_TRIP_ACTIVITY_REQUEST_CODE = 1;
+    public static final int EDIT_TRIP_ACTIVITY_REQUEST_CODE = 2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -112,6 +113,19 @@ public class HomeFragment extends Fragment implements TripAdapter.OnClickListene
                     data.getBundleExtra("TRIP_BUNDLE").getFloat(AddTripActivity.RATING));
 
             homeViewModel.insert(tripEntity);
+        }else if (requestCode == EDIT_TRIP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            TripEntity tripEntity = new TripEntity("placeholder",
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.TRIP_NAME),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.DESTINATION),
+                    false,
+                    false,
+                    true,
+                    (int) data.getBundleExtra("TRIP_BUNDLE").getFloat(AddTripActivity.PRICE),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.START_DATE),
+                    data.getBundleExtra("TRIP_BUNDLE").getString(AddTripActivity.END_DATE),
+                    data.getBundleExtra("TRIP_BUNDLE").getFloat(AddTripActivity.RATING));
+
+            homeViewModel.update(tripEntity);
         }
     }
 
@@ -124,5 +138,7 @@ public class HomeFragment extends Fragment implements TripAdapter.OnClickListene
     @Override
     public void onItemLongClick(int position, View v) {
         Log.d(TAG, "onItemLongClick: long clicked");
+        Intent intent = new Intent(getContext(), AddTripActivity.class);
+        startActivityForResult(intent, EDIT_TRIP_ACTIVITY_REQUEST_CODE);
     }
 }

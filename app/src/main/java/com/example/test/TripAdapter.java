@@ -45,9 +45,9 @@ public class TripAdapter  extends RecyclerView.Adapter<TripAdapter.RecyclerViewH
         holder.getFavorite().setActivated(true);
         holder.getDestination().setText(destination);
 
-        if (position == 0) {
+//        if (position == 0) {
             holder.getPicture().setImageResource(R.drawable.ic_launcher_foreground);
-        }
+//        }
 
         holder.getPicture().setOnClickListener(new View.OnClickListener() {
             @Override

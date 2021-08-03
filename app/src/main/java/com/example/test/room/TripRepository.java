@@ -29,4 +29,9 @@ public class TripRepository {
             tripDao.insertTrip(trip);
         });
     }
+    public void update(TripEntity trip) {
+        TripRoomDatabase.executor.execute(() -> {
+            tripDao.updateTrip(trip);
+        });
+    }
 }

@@ -28,4 +28,5 @@ public class HomeViewModel extends AndroidViewModel {
         return allTrips;
     }
     public void insert(TripEntity trip) { tripRepository.insert(trip); }
+    public void update(TripEntity trip) { tripRepository.update(trip); }
 }
