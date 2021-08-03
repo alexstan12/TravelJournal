@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.AddTripActivity;
-import com.example.test.R;
 import com.example.test.Trip;
 import com.example.test.TripAdapter;
 
@@ -33,7 +32,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TripAdapter.OnClickListener {
 
     private final String TAG = HomeFragment.class.getSimpleName();
     private HomeViewModel homeViewModel;
@@ -60,7 +59,7 @@ public class HomeFragment extends Fragment {
         List<Trip> tripList = new ArrayList<>();
 //        Trip trip1 = new Trip("picture", "tripName", "priceRating", "favorite");
 //        tripList.add(trip1);
-        TripAdapter tripAdapter = new TripAdapter(tripList);
+        TripAdapter tripAdapter = new TripAdapter(tripList, this);
         recycler.setAdapter(tripAdapter);
 
         final TextView textView = binding.textHome;
@@ -114,5 +113,16 @@ public class HomeFragment extends Fragment {
 
             homeViewModel.insert(tripEntity);
         }
+    }
+
+    @Override
+    public void onItemClick(int position, View v) {
+        Log.d(TAG, "onItemClick: clicked");
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+    }
+
+    @Override
+    public void onItemLongClick(int position, View v) {
+        Log.d(TAG, "onItemLongClick: long clicked");
     }
 }
